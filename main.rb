@@ -1,8 +1,13 @@
-#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# !/usr/bin/env ruby
 
 require "ap"
 require "byebug"
 
+# Main Program Code
+# This class interacts with the inputs, and the rest of the code
+# to process the information and return the output.
 class Main
   attr_accessor :filename
 
@@ -10,6 +15,8 @@ class Main
     @filename = nil
   end
 
+  # Run the require program steps for it to read, process & output
+  # the information
   def run_program
     # read_filename_from_stdin
 
@@ -19,12 +26,13 @@ class Main
     processing_filename(filename)
   end
 
+  # Assigns @filename wheter it was received as a param or through console
   def read_operations_filename
     self.filename ||= read_filename_from_param unless ARGV.empty?
     self.filename ||= read_filename_from_console if filename.nil?
   end
 
-
+  # Prints Welcome Screen
   def print_init_screen
     puts "-." * 17
     puts ":: Basic Credit Card Processing ::"
@@ -41,11 +49,11 @@ class Main
 
   def read_filename_from_console
     puts "> Please introduce an operations' input file (ex. inputs.txt):"
-    filename ||= gets.chomp
+    gets.chomp
   end
 
   def read_filename_from_param
-    filename ||= ARGV.first
+    ARGV.first
   end
 end
 
