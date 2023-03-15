@@ -21,13 +21,14 @@ class Card
   # Checks if the Card's number is valid
   def valid?
     return false if number.blank?
+
     CreditCardValidations::Luhn.valid?(number)
   end
 
   # Addes balance to the Card
-  def charge(added_balance)
-    if added_balance.is_a?(Integer) && added_balance.positive? && valid?
-      new_balance = self.balance + added_balance
+  def charge(charge_balance)
+    if charge_balance.is_a?(Integer) && charge_balance.positive? && valid?
+      new_balance = balance + charge_balance
 
       self.balance = new_balance if new_balance < limit
     end
@@ -36,10 +37,10 @@ class Card
   end
 
   # Substracts balanace from the Card
-  def credit(substracted_balance)
-    if substracted_balance.is_a?(Integer) && substracted_balance.positive? && valid?
-      self.balance -= substracted_balance
-    end
+  def credit(credit_balance)
+    valid_credit_balance = credit_balance.is_a?(Integer) && credit_balance.positive? && valid?
+
+    self.balance -= credit_balance if valid_credit_balance
 
     balance
   end
@@ -48,6 +49,7 @@ class Card
 
   def new_limit(new_limit)
     return new_limit if new_limit.is_a?(Integer) && new_limit.positive?
+
     0
   end
 end

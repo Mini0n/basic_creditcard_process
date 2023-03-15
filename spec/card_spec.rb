@@ -56,7 +56,7 @@ RSpec.describe Card do
       it "returns the new limit" do
         subject = described_class.new
 
-        expect(subject.new_limit(4300)).to eq 4300
+        expect(subject.send(:new_limit, 4300)).to eq 4300
       end
     end
 
@@ -64,7 +64,7 @@ RSpec.describe Card do
       it "returns zero" do
         subject = described_class.new
 
-        expect(subject.new_limit(nil)).to eq 0
+        expect(subject.send(:new_limit, nil)).to eq 0
       end
     end
 
@@ -72,7 +72,7 @@ RSpec.describe Card do
       it "returns zero" do
         subject = described_class.new
 
-        expect(subject.new_limit(4300.43)).to eq 0
+        expect(subject.send(:new_limit, 4300.43)).to eq 0
       end
     end
 
@@ -80,7 +80,7 @@ RSpec.describe Card do
       it "returns zero" do
         subject = described_class.new
 
-        expect(subject.new_limit(-4300)).to eq 0
+        expect(subject.send(:new_limit, -4300)).to eq 0
       end
     end
   end
