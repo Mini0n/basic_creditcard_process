@@ -17,6 +17,7 @@ class Card
   end
 
   def valid?
+    return false if number.blank?
     CreditCardValidations::Luhn.valid?(number)
   end
 

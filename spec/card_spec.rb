@@ -5,27 +5,94 @@ require "byebug"
 
 RSpec.describe Card do
 
-  it "creates a Card" do
-    subject = described_class.new(number: "4111111111111111", limit: 1000)
+  describe "#new" do
+    it "creates a Card with a valid number & limit" do
+      subject = described_class.new(number: "4111111111111111", limit: 1000)
 
-    expect(subject.is_a?(Card)).to be true
-    expect(subject).to have_attributes(number: "4111111111111111",
-                                       limit: 1000, balance: 0, valid: true)
+      expect(subject.is_a?(Card)).to be true
+      expect(subject).to have_attributes(number: "4111111111111111",
+                                        limit: 1000, balance: 0, valid: true)
+    end
+
+    it "creates a Card with a invalid number & limit" do
+      subject = described_class.new(number: "4111111111111112", limit: 1000)
+
+      expect(subject.is_a?(Card)).to be true
+      expect(subject).to have_attributes(number: "4111111111111112",
+                                        limit: 1000, balance: 0, valid: false)
+    end
+
+    it "creates a Card without a number or limit" do
+      subject = described_class.new()
+
+      expect(subject.is_a?(Card)).to be true
+      expect(subject).to have_attributes(number: nil, limit: 0, balance: 0, valid: false)
+    end
   end
 
   describe "#valid?" do
     context "when a valid card number is used" do
       it "returns true" do
-        subject = described_class.new(number: "4111111111111111")
+        subject = described_class.new()
 
+        subject.number = "585227606647" # 12 digits
+        expect(subject.valid?).to be true
+
+        subject.number = "6015376071173" # 13 digits
+        expect(subject.valid?).to be true
+
+        subject.number = "30440335740157" # 14 digits
+        expect(subject.valid?).to be true
+
+        subject.number = "342581510871672" # 15 digits
+        expect(subject.valid?).to be true
+
+        subject.number = "4631538551364753" # 16 digits
+        expect(subject.valid?).to be true
+
+        subject.number = "67417205832681762" # 17 digits
+        expect(subject.valid?).to be true
+
+        subject.number = "676763182487285637" # 18 digits
+        expect(subject.valid?).to be true
+
+        subject.number = "6010430241237266856" # 19 digits
         expect(subject.valid?).to be true
       end
     end
 
     context "when an invalid car number is used" do
       it "returns false" do
-        subject = described_class.new(number: "4111111111111112")
+        subject = described_class.new()
 
+        subject.number = nil # nil
+        expect(subject.valid?).to be false
+
+        subject.number = "" # empty
+        expect(subject.valid?).to be false
+
+        subject.number = "585227606641" # 12 digits
+        expect(subject.valid?).to be false
+
+        subject.number = "6015376071172" # 13 digits
+        expect(subject.valid?).to be false
+
+        subject.number = "30440335740153" # 14 digits
+        expect(subject.valid?).to be false
+
+        subject.number = "342581510871674" # 15 digits
+        expect(subject.valid?).to be false
+
+        subject.number = "4631538551364755" # 16 digits
+        expect(subject.valid?).to be false
+
+        subject.number = "67417205832681766" # 17 digits
+        expect(subject.valid?).to be false
+
+        subject.number = "676763182487285636" # 18 digits
+        expect(subject.valid?).to be false
+
+        subject.number = "6010430241237266858" # 19 digits
         expect(subject.valid?).to be false
       end
     end
