@@ -178,12 +178,12 @@ RSpec.describe User do
 
 
         expect(subject.balance).to eq 0
-        expect(subject.to_s).to eq "Test Name: 0"
+        expect(subject.to_s).to eq "Test Name: $0"
         expect(subject.charge(555)).to eq 555
         expect(subject.balance).to eq 555
-        expect(subject.to_s).to eq "Test Name: 555"
+        expect(subject.to_s).to eq "Test Name: $555"
         expect(subject.credit(55)).to eq 500
-        expect(subject.to_s).to eq "Test Name: 500"
+        expect(subject.to_s).to eq "Test Name: $500"
       end
     end
 

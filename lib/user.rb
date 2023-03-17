@@ -38,6 +38,6 @@ class User
 
   # Prints the user & balance(or "error")
   def to_s
-    "#{name}: #{balance}"
+    "#{name}: #{valid? ? '$' : ''}#{balance}"
   end
 end
