@@ -36,6 +36,7 @@ class User
     self&.card&.credit(credit_balance)
   end
 
+  # Prints the user & balance(or "error")
   def to_s
     "#{self.name}: #{self.balance}"
   end
