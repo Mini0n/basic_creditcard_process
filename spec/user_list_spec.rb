@@ -253,7 +253,6 @@ RSpec.describe UserList do
         quincy_card = Card.new(number: "1234567890123456", limit: 2000)
         quincy_user = User.new(name: "Quincy", card: quincy_card)
 
-
         subject = described_class.new
         subject.add_user(user: tom_user)
         subject.add_user(user: lisa_user)
