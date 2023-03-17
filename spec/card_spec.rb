@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "card.rb"
+require "card"
 require "byebug"
 
 RSpec.describe Card do
@@ -224,7 +224,7 @@ RSpec.describe Card do
         expect(subject.balance).to eq(430)
 
         expect(subject.credit(443)).to eq(-13)
-        expect(subject.balance).to eq -13
+        expect(subject.balance).to eq(-13)
       end
     end
 

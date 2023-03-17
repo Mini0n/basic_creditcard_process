@@ -1,4 +1,6 @@
-require "user.rb"
+# frozen_string_literal: true
+
+require "user"
 require "byebug"
 
 RSpec.describe User do
@@ -78,11 +80,11 @@ RSpec.describe User do
       it "returns 'error'" do
         subject = described_class.new(name: "Test Name", card: nil)
 
-        expect(subject&.card&.balance).to eq nil
+        expect(subject&.card&.balance).to be_nil
 
         subject&.card&.charge(555)
 
-        expect(subject&.card&.balance).to eq nil
+        expect(subject&.card&.balance).to be_nil
         expect(subject.balance).to eq "error"
       end
     end
@@ -118,8 +120,8 @@ RSpec.describe User do
         subject = described_class.new(name: "Test Name", card: nil)
 
         expect(subject&.balance).to eq "error"
-        expect(subject&.charge(555)).to eq nil
-        expect(subject&.card&.balance).to eq nil
+        expect(subject&.charge(555)).to be_nil
+        expect(subject&.card&.balance).to be_nil
         expect(subject.balance).to eq "error"
       end
     end
@@ -159,10 +161,10 @@ RSpec.describe User do
         subject = described_class.new(name: "Test Name", card: nil)
 
         expect(subject.balance).to eq "error"
-        expect(subject.charge(555)).to eq nil
+        expect(subject.charge(555)).to be_nil
         expect(subject.balance).to eq "error"
-        expect(subject.credit(55)).to eq nil
-        expect(subject&.card&.balance).to eq nil
+        expect(subject.credit(55)).to be_nil
+        expect(subject&.card&.balance).to be_nil
         expect(subject.balance).to eq "error"
       end
     end
@@ -208,10 +210,10 @@ RSpec.describe User do
 
         expect(subject.balance).to eq "error"
         expect(subject.to_s).to eq "Test Name: error"
-        expect(subject.charge(555)).to eq nil
+        expect(subject.charge(555)).to be_nil
         expect(subject.balance).to eq "error"
         expect(subject.to_s).to eq "Test Name: error"
-        expect(subject.credit(55)).to eq nil
+        expect(subject.credit(55)).to be_nil
         expect(subject.to_s).to eq "Test Name: error"
       end
     end
@@ -222,12 +224,12 @@ RSpec.describe User do
 
 
         expect(subject.balance).to eq "error"
-        expect(subject.to_s).to match /<unamed>\[[0-9]+\]: error/
-        expect(subject.charge(555)).to eq nil
+        expect(subject.to_s).to match(/<unamed>\[[0-9]+\]: error/)
+        expect(subject.charge(555)).to be_nil
         expect(subject.balance).to eq "error"
-        expect(subject.to_s).to match /<unamed>\[[0-9]+\]: error/
-        expect(subject.credit(55)).to eq nil
-        expect(subject.to_s).to match /<unamed>\[[0-9]+\]: error/
+        expect(subject.to_s).to match(/<unamed>\[[0-9]+\]: error/)
+        expect(subject.credit(55)).to be_nil
+        expect(subject.to_s).to match(/<unamed>\[[0-9]+\]: error/)
       end
     end
   end

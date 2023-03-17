@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "card.rb"
+require "card"
 require "byebug"
 
 # User Class
@@ -10,7 +10,7 @@ class User
   attr_accessor :name, :card
 
   def initialize(name: nil, card: nil)
-    @name = name || "<unamed>[#{self.object_id}]"
+    @name = name || "<unamed>[#{object_id}]"
     @card = card
   end
 
@@ -38,6 +38,6 @@ class User
 
   # Prints the user & balance(or "error")
   def to_s
-    "#{self.name}: #{self.balance}"
+    "#{name}: #{balance}"
   end
 end
