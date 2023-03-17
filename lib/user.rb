@@ -10,18 +10,20 @@ class User
   attr_accessor :name, :card
 
   def initialize(name: nil, card: nil)
-    @name = name
+    @name = name || "<unamed>[#{self.object_id}]"
     @card = card
   end
 
   # Checks if the User has a valid Card
   def valid?
-    self&.card&.valid?
+    self&.card&.valid? || false
   end
 
   # Returns the User's Card balance
   def balance
-    self&.card&.balanace
+    return "error" unless valid?
+
+    self&.card&.balance
   end
 
   # Charges balance to the User's Card
@@ -34,4 +36,7 @@ class User
     self&.card&.credit(credit_balance)
   end
 
+  def to_s
+    "#{self.name}: #{self.balance}"
+  end
 end
