@@ -30,7 +30,7 @@ class Card
     if charge_balance.is_a?(Integer) && charge_balance.positive? && valid?
       new_balance = balance + charge_balance
 
-      self.balance = new_balance if new_balance < limit
+      self.balance = new_balance if new_balance <= limit
     end
 
     balance
