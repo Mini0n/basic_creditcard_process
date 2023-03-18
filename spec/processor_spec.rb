@@ -151,7 +151,7 @@ RSpec.describe Processor do
   end
 
   describe "#process_instruction_hash" do
-    context "when an 'add' instruction is passed" do
+    context "when an 'add' instruction_hash is passed" do
       it "calls #process_add and returns its result" do
         instruction_hash = processor.parse_instruction(instruction: "Add Tom 4111111111111111 $1000")
         new_user = processor.process_instruction_hash(instruction_hash: instruction_hash)
@@ -169,7 +169,7 @@ RSpec.describe Processor do
       end
     end
 
-    context "when a 'charge' instruction is passed" do
+    context "when a 'charge' instruction_hash is passed" do
       it "calls #process_charge and returns its result" do
         instruction_hash = processor.parse_instruction(instruction: "Add Tom 4111111111111111 $1000")
         new_user = processor.process_instruction_hash(instruction_hash: instruction_hash)
@@ -203,7 +203,7 @@ RSpec.describe Processor do
       end
     end
 
-    context "when a 'credit' instruction is passed" do
+    context "when a 'credit' instruction_hash is passed" do
       it "calls #process_credit and returns its result" do
         instruction_hash = processor.parse_instruction(instruction: "Add Lisa 5454545454545454 $3000")
         new_user = processor.process_instruction_hash(instruction_hash: instruction_hash)
@@ -238,12 +238,11 @@ RSpec.describe Processor do
       it "returns the instruction result (a created User or its balance)" do
         expect(processor.process_instruction(instruction: "ADD Lisa 5454545454545454 $3000")).to be_a(User)
         expect(processor.process_instruction(instruction: "ChArGe Lisa $7")).to be 7
-        expect(processor.process_instruction(instruction: "credit Lisa $100")).to be -93
+        expect(processor.process_instruction(instruction: "credit Lisa $100")).to be (-93)
       end
     end
 
-
-    context "when a malformed instruction is passed" do
+    context "when a invalid instruction is passed" do
       it "returns nil" do
         expect(processor.process_instruction(instruction: "Create Tom 4111111111111111 $1000")).to be_nil
         expect(processor.process_instruction(instruction: "Add Lisa 1000")).to be_nil
