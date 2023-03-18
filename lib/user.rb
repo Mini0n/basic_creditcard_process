@@ -5,7 +5,7 @@ require "byebug"
 
 # User Class
 # Manages the User logic including:
-# Names, Card numbers, Card limit, Card balance
+# Names, Card operations & validation
 class User
   attr_accessor :name, :card
 

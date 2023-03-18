@@ -118,7 +118,7 @@ RSpec.describe UserList do
     context "when no User is passed" do
       it "returns nil (nothing is removed)" do
         subject = described_class.new
-        expect(subject.add_user(user: nil)).to eq nil
+        expect(subject.add_user(user: nil)).to be_nil
         expect(subject.users.size).to eq 0
       end
     end

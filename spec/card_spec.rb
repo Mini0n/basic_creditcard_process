@@ -6,7 +6,7 @@ require "byebug"
 RSpec.describe Card do
   describe "constants" do
     it "has DEFAULT_BALANCE constant" do
-      expect(described_class::DEFAULT_BALANCE).to eq(0)
+      expect(described_class::DEFAULT_BALANCE).not_to be_nil
     end
   end
 

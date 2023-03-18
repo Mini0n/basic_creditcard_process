@@ -4,7 +4,7 @@ require "user"
 require "byebug"
 
 # User List Class
-# Stores a list of users so they can be easily found
+# A list of Users with finding & printing
 class UserList
   attr_accessor :users, :cards
 
