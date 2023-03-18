@@ -70,8 +70,6 @@ RSpec.describe Processor do
     end
   end
 
-
-
   describe "#valid_instrucion?" do
     context "when a valid instruction is passed" do
       it "returns true" do
@@ -87,22 +85,47 @@ RSpec.describe Processor do
         expect(subject.send(:valid_instruction?, "Credit Quincy $200")).to be true
       end
     end
+
+    context "when an ivalid instruction is passed" do
+      it "returns false" do
+        subject = described_class.new
+
+        expect(subject.send(:valid_instruction?, "")).to be false
+        expect(subject.send(:valid_instruction?, "Add Tom $1000")).to be false
+        expect(subject.send(:valid_instruction?, "Add Tom 41111111111111111")).to be false
+        expect(subject.send(:valid_instruction?, "Add Tom 411111111111111117890 $1000")).to be false
+        expect(subject.send(:valid_instruction?, "Lisa $7")).to be false
+        expect(subject.send(:valid_instruction?, "Charge $7")).to be false
+        expect(subject.send(:valid_instruction?, "Charge Lisa $")).to be false
+        expect(subject.send(:valid_instruction?, "Charge Lisa 7")).to be false
+        expect(subject.send(:valid_instruction?, "Credit Quincy $")).to be false
+        expect(subject.send(:valid_instruction?, "Credit Quincy 200")).to be false
+      end
+    end
   end
 
-  context "when an ivalid instruction is passed" do
-    it "returns false" do
-      subject = described_class.new
+  describe "#instruction_type" do
+    context "when a valid instruction is passed" do
+      it "returns the instruction type" do
+        subject = described_class.new
 
-      expect(subject.send(:valid_instruction?, "")).to be false
-      expect(subject.send(:valid_instruction?, "Add Tom $1000")).to be false
-      expect(subject.send(:valid_instruction?, "Add Tom 41111111111111111")).to be false
-      expect(subject.send(:valid_instruction?, "Add Tom 411111111111111117890 $1000")).to be false
-      expect(subject.send(:valid_instruction?, "Lisa $7")).to be false
-      expect(subject.send(:valid_instruction?, "Charge $7")).to be false
-      expect(subject.send(:valid_instruction?, "Charge Lisa $")).to be false
-      expect(subject.send(:valid_instruction?, "Charge Lisa 7")).to be false
-      expect(subject.send(:valid_instruction?, "Credit Quincy $")).to be false
-      expect(subject.send(:valid_instruction?, "Credit Quincy 200")).to be false
+        expect(subject.send(:instruction_type, "Add Tom 4111111111111111 $1000")).to eq :add
+        expect(subject.send(:instruction_type, "Charge Lisa $7")).to eq :charge
+        expect(subject.send(:instruction_type, "Credit Quincy $200")).to eq :credit
+      end
+    end
+
+    context "when an invalid instruction is passed" do
+      it "returns nil" do
+        subject = described_class.new
+
+        expect(subject.send(:instruction_type, "")).to be_nil
+        expect(subject.send(:instruction_type, nil)).to be_nil
+        expect(subject.send(:instruction_type, "Credit $200")).to be_nil
+        expect(subject.send(:instruction_type, "Charge Lisa 7")).to be_nil
+        expect(subject.send(:instruction_type, "Lend Quincy $200")).to be_nil
+        expect(subject.send(:instruction_type, "Add Tom 411118382832311111111111 $1000")).to be_nil
+      end
     end
   end
 

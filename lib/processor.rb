@@ -17,18 +17,27 @@ class Processor
 
   # Parse an instruction line
   def parse_instruction(instruction: nil)
-    return unless instruction.is_a?(String) || instruction.blank?
+    return unless valid_instruction?(instruction)
 
-    instruction_parts = instruction.split(PARAM_SEPARATOR)
-
-    return if instruction_parts.length != 3
-
-    instruction_parts
+    case instruction_type(instruction)
+    when :add
+      return "add"
+    when :charge
+      return "charge"
+    when :credit
+      return "credit"
+    end
   end
 
 
 
   private
+
+  def instruction_type(instruction)
+    return :add if (instruction =~ add_regex) == 0
+    return :charge if (instruction =~ charge_regex) == 0
+    return :credit if (instruction =~ credit_regex) == 0
+  end
 
   def valid_instruction?(instruction)
     return false unless instruction.is_a?(String)
