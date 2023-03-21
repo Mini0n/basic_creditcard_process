@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "user"
+require_relative "user"
 require "byebug"
 
 # User List Class

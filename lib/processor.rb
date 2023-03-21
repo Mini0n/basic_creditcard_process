@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "user_list"
+require_relative "user_list"
 require "byebug"
 
 # Procesor Class
