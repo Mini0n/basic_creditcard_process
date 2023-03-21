@@ -1,0 +1,39 @@
+Add Tom 4111111111111111 $1000
+Add Lisa 5454545454545454 $3000
+Add Quincy 1234567890123456 $2000
+Charge Tom $500
+Charge Tom $800
+Charge Lisa $7
+Credit Lisa $100
+Credit Quincy $200
+
+Charge Tom $500
+Charge Tom $800
+Charge Lisa $7
+Credit Lisa $100
+Credit Quincy $200
+
+Charge Tom $500
+Charge Tom $800
+Charge Lisa $7
+Credit Lisa $100
+Credit Quincy $200
+
+Charge Tom $500
+Charge Tom $800
+Charge Lisa $7
+Credit Lisa $100
+Credit Quincy $200
+
+Charge Tom $500
+Charge Tom $800
+Charge Lisa $7
+Credit Lisa $100
+Credit Quincy $200
+
+Charge Lisa $500
+
+; expected
+; Lisa: $35 (7*5) - (100*5) + 500
+; Quincy: error
+; Tom: $1000 (500+800)*5 but limit at 1000
