@@ -33,7 +33,8 @@ Credit Quincy $200
 
 Charge Lisa $500
 
-; expected
-; Lisa: $35 (7*5) - (100*5) + 500
-; Quincy: error
-; Tom: $1000 (500+800)*5 but limit at 1000
+; expected:
+
+; Lisa: $35     --- (7*5) - (100*5) + 500
+; Quincy: error --- invalid card number
+; Tom: $1000    --- (500+800)*5 but limit at 1000
