@@ -4,32 +4,35 @@
 
 require "ap"
 require "byebug"
+require_relative "./lib/processor"
 
 # Main Program Code
 # This class interacts with the inputs, and the rest of the code
 # to process the information and return the output.
 class Main
-  attr_accessor :filename
+  attr_accessor :filename, :processor
 
   def initialize
     @filename = nil
+    @processor = Processor.new
   end
 
   # Run the require program steps for it to read, process & output
   # the information
   def run_program
-    # read_filename_from_stdin
+    input_instructions = read_instructions_from_stdin
 
     print_init_screen
-    read_operations_filename
 
-    processing_filename(filename)
-  end
+    if input_instructions.blank?
+      puts "Reading instructions from file..."
+      read_instructions_filename
+      input_instructions = read_instructions_from_file(filename)
+    end
 
-  # Assigns @filename wheter it was received as a param or through console
-  def read_operations_filename
-    self.filename ||= read_filename_from_param unless ARGV.empty?
-    self.filename ||= read_filename_from_console if filename.nil?
+    process_instructions(input_instructions)
+  rescue StandardError => e
+    print_error_screen(e)
   end
 
   # Prints Welcome Screen
@@ -40,48 +43,60 @@ class Main
     puts "\n"
   end
 
-
   private
 
-  def processing_filename(filename)
-    puts " > Processing #{filename}..."
+  def process_instructions(instructions)
+    puts "Processing instructions..."
+    input_instructions = instructions.split("\n")
+
+    input_instructions.each do |instruction|
+      processor.process_instruction(instruction: instruction)
+    end
+
+    puts "Done\n\n"
+    puts processor.user_list.to_s
+  end
+
+  def read_instructions_filename
+    self.filename ||= read_filename_from_param unless ARGV.empty?
+    self.filename ||= read_filename_from_console if filename.nil?
+  end
+
+  def read_instructions_from_file(filename)
+    file = File.open(filename)
+    file_data = file.read
+    return unless file_data.is_a?(String)
+
+    file_data
+  end
+
+  def read_instructions_from_stdin
+    return if $stdin.tty? # return if $stdin is a file
+
+    stdin_input = $stdin.read
+    return unless stdin_input.is_a?(String)
+
+    stdin_input
   end
 
   def read_filename_from_console
-    puts "> Please introduce an operations' input file (ex. inputs.txt):"
+    puts "Please introduce an operations input file (ex. inputs.txt):"
     gets.chomp
   end
 
   def read_filename_from_param
     ARGV.first
   end
+
+  def print_error_screen(e)
+    puts "_" * 34
+    puts "Whoops! An error has ocurred."
+    puts "Please verify the input given.\n\n"
+    puts e.message
+    puts "_" * 34
+  end
 end
 
 # Run Main program
-
 program = Main.new
 program.run_program
-
-
-
-
-
-# def read_filename_from_stdin
-#   file_content = ""
-
-#   if $stdin.tty?
-#     ARGV.each do |file|
-#       # puts "do something with this file: #{file}"
-#       file_content << file
-#     end
-#   else
-#     $stdin.each_line do |line|
-#       # puts "do something with this line: #{line}"
-#       file_content << line
-#     end
-#   end
-
-#   ap file_content
-#   byebug
-
-# end
