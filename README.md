@@ -47,7 +47,10 @@ ruby basic_card_processor.rb < ./spec/fixtures/original_test.txt
 
 ### Running the program
 
-You need Ruby 2.7.6 to run the program.
+This code was developer using Ruby 2.7.6.
+To run the program please install it.
+My prefered way is through rvm: [Ruby Version Manager](https://rvm.io/)
+
 After that, there are some gems used for development, card number validation & testing.
 
 Please install them by running:
