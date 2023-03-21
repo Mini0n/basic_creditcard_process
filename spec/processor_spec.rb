@@ -238,7 +238,7 @@ RSpec.describe Processor do
       it "returns the instruction result (a created User or its balance)" do
         expect(processor.process_instruction(instruction: "ADD Lisa 5454545454545454 $3000")).to be_a(User)
         expect(processor.process_instruction(instruction: "ChArGe Lisa $7")).to be 7
-        expect(processor.process_instruction(instruction: "credit Lisa $100")).to be (-93)
+        expect(processor.process_instruction(instruction: "credit Lisa $100")).to be(-93)
       end
     end
 
