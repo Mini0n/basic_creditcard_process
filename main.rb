@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# !/usr/bin/env ruby
-
 require "ap"
 require "byebug"
 require_relative "./lib/processor"
@@ -35,14 +33,6 @@ class Main
     print_error_screen(e)
   end
 
-  # Prints Welcome Screen
-  def print_init_screen
-    puts "-." * 17
-    puts ":: Basic Credit Card Processing ::"
-    puts "-." * 17
-    puts "\n"
-  end
-
   private
 
   def process_instructions(instructions)
@@ -64,10 +54,7 @@ class Main
 
   def read_instructions_from_file(filename)
     file = File.open(filename)
-    file_data = file.read
-    return unless file_data.is_a?(String)
-
-    file_data
+    file.read
   end
 
   def read_instructions_from_stdin
@@ -95,8 +82,12 @@ class Main
     puts e.message
     puts "_" * 34
   end
-end
 
-# Run Main program
-program = Main.new
-program.run_program
+  # Prints Welcome Screen
+  def print_init_screen
+    puts "-." * 17
+    puts ":: Basic Credit Card Processing ::"
+    puts "-." * 17
+    puts "\n"
+  end
+end
