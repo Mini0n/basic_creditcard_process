@@ -89,7 +89,7 @@ I think everything has been nicely abstracted.
 My design approach for this code followed three ideas:
 
 1. Stick to the basics: focus & code each operation to do what it needs to.
-2. Let the user be the most important one of the models. The user uses the operations and not the other way around.
+2. Let the user be the most important one of the models. The user use the operations and not the other way around.
 3. Let the code do the work.
 
 So, with that in mind I decided I needed at least three abstractions:
@@ -107,7 +107,7 @@ Originaly I was thinking of splitting the instructions and do some "manual" veri
 
 With the regular expressions in place I just needed to asked the users to do what the instruction said.
 
-So I created a UserList. It will hold all the users from the execution run. I used a sumple Hash for this.
+So I created a UserList. It will hold all the users from the execution. I used a simple Hash for this.
 With a Hash I could use the User name as a key (since no repeated User names are allowed) and get it's instance. The UserList model also helped to avoid run operations if the User was invalid (Invalid Card). And print the status; the Users' current balances.
 
 So, I had a Processor which will have a UserList.
@@ -115,10 +115,12 @@ Then, it will check & run an instruction (if its a valid one) to create a User, 
 
 Everything is working. We just need the final touches. To run everything from the console.
 
-Read information from a file or STDIN and pass it over to a Processor instance. The Processor will nor what to do. Just add some screens and an Exception handler to keep everything at bay in case something weird is passed to the program, like a file that does not exist.
+Read information from a file or STDIN and pass it over to a Processor instance. The Processor will know what to do. Just add some screens and an Exception handler to keep everything at bay in case something weird is passed to the program, like a file that does not exist.
 
 So, everything worked and seems to hold together.
-Each abstraction does what is intended to do and allows to be built upon. Let the code do the work.
+Each abstraction does what it is intended to do and allows to be built upon.
+
+Let the code do the work.
 
 
 
